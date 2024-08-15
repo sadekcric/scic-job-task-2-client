@@ -9,6 +9,7 @@ import {
 } from "firebase/auth";
 import auth from "../../firebase/firebase.config";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext(null);
 
@@ -27,7 +28,7 @@ const AuthProvider = ({ children }) => {
   };
 
   const logOut = () => {
-    signOut(auth).then(() => {
+    return signOut(auth).then(() => {
       Swal.fire({
         icon: "success",
         title: "Logout",

@@ -72,7 +72,7 @@ const Registration = () => {
           <input type="password" name="conformPassword" required className="py-2 px-3 rounded-md border-gray-800 border w-full" />
         </div>
         <button className="w-full bg-gray-700 text-white rounded-md mt-6 py-3" type="submit">
-          Login
+          Register
         </button>
       </form>
     </div>

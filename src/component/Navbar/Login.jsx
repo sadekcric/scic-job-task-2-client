@@ -19,6 +19,7 @@ const Login = () => {
           title: "Login",
           text: "Login Successful",
         });
+        navigate("/products");
       })
       .catch((err) => {
         Swal.fire({
@@ -44,6 +45,7 @@ const Login = () => {
             title: "Login",
             text: "Login Successful",
           });
+          navigate("/products");
         }
       })
       .catch((err) => {

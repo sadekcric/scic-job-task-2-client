@@ -2,7 +2,6 @@ import React from "react";
 import { TiStarFullOutline } from "react-icons/ti";
 
 const Product = ({ product }) => {
-  console.log(product);
   const { Ratings, Price, ProductImage, ProductName } = product;
   return (
     <div className="rounded-lg shadow-md shadow-gray-500 p-5 space-y-5">

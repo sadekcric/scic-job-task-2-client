@@ -28,13 +28,8 @@ const AuthProvider = ({ children }) => {
   };
 
   const logOut = () => {
-    return signOut(auth).then(() => {
-      Swal.fire({
-        icon: "success",
-        title: "Logout",
-        text: "Logout Successful",
-      });
-    });
+    setLoader(true);
+    return signOut(auth);
   };
 
   const googleLogin = new GoogleAuthProvider();

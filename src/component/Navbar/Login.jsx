@@ -4,12 +4,31 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const { firebaseLogin, user } = useContext(AuthContext);
+  const { firebaseLogin, user, googleAuth } = useContext(AuthContext);
   const navigate = useNavigate();
 
   if (user) {
     return navigate("/products");
   }
+
+  const handleGoogleLogin = () => {
+    googleAuth()
+      .then(() => {
+        Swal.fire({
+          icon: "success",
+          title: "Login",
+          text: "Login Successful",
+        });
+      })
+      .catch((err) => {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: err.message,
+        });
+      });
+  };
+
   const handleLogin = (e) => {
     e.preventDefault();
 
@@ -51,6 +70,12 @@ const Login = () => {
           Login
         </button>
       </form>
+
+      <div className="mt-6">
+        <button onClick={handleGoogleLogin} className="border-2 border-gray-700 px-6 py-3 rounded-md font-semibold">
+          Google Login
+        </button>
+      </div>
     </div>
   );
 };

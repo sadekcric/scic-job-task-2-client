@@ -1,13 +1,13 @@
 import { createContext, useEffect, useState } from "react";
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import auth from "../../firebase/firebase.config";
+import Swal from "sweetalert2";
 
 export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
   const [loader, setLoader] = useState(true);
   const [user, setUser] = useState(null);
-  console.log(user);
 
   const firebaseRegister = (email, password) => {
     setLoader(true);
@@ -19,6 +19,16 @@ const AuthProvider = ({ children }) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
 
+  const logOut = () => {
+    signOut(auth).then(() => {
+      Swal.fire({
+        icon: "success",
+        title: "Logout",
+        text: "Logout Successful",
+      });
+    });
+  };
+
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -28,7 +38,7 @@ const AuthProvider = ({ children }) => {
     return () => unSubscribe();
   }, []);
 
-  const info = { firebaseRegister, firebaseLogin, loader };
+  const info = { firebaseRegister, firebaseLogin, loader, user, logOut };
   return <AuthContext.Provider value={info}>{children}</AuthContext.Provider>;
 };
 

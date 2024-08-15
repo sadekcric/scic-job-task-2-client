@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./component/Navbar/Login.jsx";
 import Registration from "./component/Navbar/Registration.jsx";
 import AuthProvider from "./component/AuthProvider/AuthProvider.jsx";
+import Products from "./component/Products/Products.jsx";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
       {
         path: "register",
         element: <Registration />,
+      },
+      {
+        path: "products",
+        element: <Products />,
       },
     ],
   },

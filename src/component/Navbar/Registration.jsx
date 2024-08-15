@@ -5,8 +5,12 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
 const Registration = () => {
-  const { firebaseRegister } = useContext(AuthContext);
+  const { firebaseRegister, user } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  if (user) {
+    return navigate("/products");
+  }
 
   const handleRegister = (e) => {
     e.preventDefault();

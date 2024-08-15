@@ -1,11 +1,39 @@
+import { useContext } from "react";
+import { AuthContext } from "../AuthProvider/AuthProvider";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+
 const Login = () => {
+  const { firebaseLogin, user } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  if (user) {
+    return navigate("/products");
+  }
   const handleLogin = (e) => {
     e.preventDefault();
 
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
-    console.log(email, password);
+
+    firebaseLogin(email, password)
+      .then((data) => {
+        if (data.user) {
+          Swal.fire({
+            icon: "success",
+            title: "Login",
+            text: "Login Successful",
+          });
+        }
+      })
+      .catch((err) => {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: err.message,
+        });
+      });
   };
   return (
     <div className=" mx-auto min-h-screen flex  flex-col  items-center justify-center">

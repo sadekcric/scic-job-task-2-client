@@ -16,7 +16,7 @@ const Products = () => {
   // Pagination
   const [productLength, setProductLength] = useState(0);
   const [pageNumber, setPageNumber] = useState(0);
-  const perPageData = 8;
+  const perPageData = 15;
   const totalPage = Math.ceil(productLength / perPageData);
 
   const paginationArray = [...Array(totalPage).keys()];
@@ -34,7 +34,9 @@ const Products = () => {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:5000/products?pages=${pageNumber}&size=${perPageData}&sortPrice=${sortByPrice}&sortDate=${sortByDate}`)
+    fetch(
+      `https://server-site-steel-iota.vercel.app/products?pages=${pageNumber}&size=${perPageData}&sortPrice=${sortByPrice}&sortDate=${sortByDate}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setProducts(data.allProduct);
@@ -51,7 +53,7 @@ const Products = () => {
     if (!query) return;
 
     try {
-      const res = await fetch(`http://localhost:5000/search?query=${query}`);
+      const res = await fetch(`https://server-site-steel-iota.vercel.app/search?query=${query}`);
 
       const data = await res.json();
       setProducts(data);
@@ -68,17 +70,17 @@ const Products = () => {
   const [category, setCategory] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/search-category?category=${category}`)
+    fetch(`https://server-site-steel-iota.vercel.app/search-category?category=${category}`)
       .then((res) => res.json())
       .then((data) => setProducts(data));
   }, [category]);
 
   return (
     <>
-      <div className="lg:w-4/5 mx-auto mt-5 lg:mt-10 overflow-auto">
+      <div className="lg:w-4/5 mx-auto my-5 lg:my-10 overflow-auto">
         <div className="flex items-center justify-between ">
           {/* Categorization */}
-          <div className="rounded-full bg-gray-50  shadow-sm shadow-gray-400 inline-block py-3 px-6 ">
+          <div className="rounded-full bg-gray-50  shadow-sm  shadow-gray-400 inline-block py-3 px-6 ">
             <select value={category} onChange={(e) => setCategory(e.target.value)} className=" focus:outline-none bg-gray-50 ">
               <option value="" disabled>
                 Category

@@ -1,4 +1,13 @@
+import { useContext } from "react";
+import { AuthContext } from "../AuthProvider/AuthProvider";
+import { updateProfile } from "firebase/auth";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+
 const Registration = () => {
+  const { firebaseRegister } = useContext(AuthContext);
+  const navigate = useNavigate();
+
   const handleRegister = (e) => {
     e.preventDefault();
     const name = e.target.name.value;
@@ -7,7 +16,31 @@ const Registration = () => {
     const password = e.target.password.value;
     const conformPassword = e.target.conformPassword.value;
 
-    console.log(name, email, password, conformPassword);
+    if (password !== conformPassword) {
+      return Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Password not Matched!",
+      });
+    }
+
+    firebaseRegister(email, password)
+      .then((res) => {
+        if (res.user) {
+          updateProfile(res.user, {
+            displayName: name,
+            photoURL: photo,
+          });
+          Swal.fire({
+            icon: "success",
+            title: "Registered",
+            text: "Registration Successful",
+          });
+          // navigate("/products");
+          console.log(res.user);
+        }
+      })
+      .catch((err) => console.log(err.message));
   };
   return (
     <div className=" mx-auto min-h-screen flex  flex-col  items-center justify-center">

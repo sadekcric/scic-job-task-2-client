@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Login from "./Login";
 import Registration from "./Registration";
 
@@ -11,11 +12,12 @@ const Navbar = () => {
           </h1>
         </div>
         <div className="flex gap-5 text-lg font-semibold">
-          <button onClick={() => document.getElementById("my_modal_2").showModal()}>Login</button>
-          <Login />
-
-          <button onClick={() => document.getElementById("my_modal_3").showModal()}>Registration</button>
-          <Registration />
+          <button>
+            <Link to="/login">Login</Link>
+          </button>
+          <button>
+            <Link to="/register">Registration</Link>
+          </button>
         </div>
       </div>
     </div>

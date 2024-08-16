@@ -8,6 +8,7 @@ import Registration from "./component/Navbar/Registration.jsx";
 import AuthProvider from "./component/AuthProvider/AuthProvider.jsx";
 import Products from "./component/Products/Products.jsx";
 import PrivateRoute from "./component/PrivateRoute/PrivateRoute.jsx";
+import Details from "./component/Products/Details.jsx";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,11 @@ const router = createBrowserRouter([
             <Products />
           </PrivateRoute>
         ),
+      },
+      {
+        path: "products/:_id",
+        loader: ({ params }) => fetch(`https://server-site-steel-iota.vercel.app/products/${params._id}`),
+        element: <Details />,
       },
     ],
   },

@@ -87,7 +87,7 @@ const Products = () => {
   }, [category, priceRange]);
 
   return (
-    <>
+    <div className="min-h-[calc(100vh-100px)]">
       <div className="lg:w-4/5 mx-auto my-5 lg:my-10 overflow-auto">
         <div className="flex items-center justify-between gap-5">
           {/* Categorization */}
@@ -206,7 +206,7 @@ const Products = () => {
           Next
         </button>
       </div>
-    </>
+    </div>
   );
 };
 

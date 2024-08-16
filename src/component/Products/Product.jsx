@@ -11,7 +11,7 @@ const Product = ({ product }) => {
       <div>
         <h2 className="font-semibold text-lg">{ProductName}</h2>
         <div className="flex justify-between items-center">
-          <p className="text-red-500 font-semibold">{Price}</p>
+          <p className="text-red-500 font-semibold">${Price}</p>
           <div className="flex gap-1 items-center">
             <TiStarFullOutline className="text-yellow-600 text-lg" />
             <span>{Ratings} </span>

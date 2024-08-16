@@ -66,37 +66,64 @@ const Products = () => {
     }
   };
 
-  // Category
-  const [category, setCategory] = useState(null);
+  // Category + price Range
+  const [category, setCategory] = useState("Electronics");
+  const [priceRange, setPriceRange] = useState([]);
+
+  const handlePriceRange = (e) => {
+    const value = e.target.value;
+
+    if (value) {
+      const [min, max] = value.slice(1, -1).split(",").map(Number);
+
+      setPriceRange([min, max]);
+    }
+  };
 
   useEffect(() => {
-    fetch(`https://server-site-steel-iota.vercel.app/search-category?category=${category}`)
+    fetch(`https://server-site-steel-iota.vercel.app/search-category?category=${category}&min=${priceRange[0]}&max=${priceRange[1]}`)
       .then((res) => res.json())
       .then((data) => setProducts(data));
-  }, [category]);
+  }, [category, priceRange]);
 
   return (
     <>
       <div className="lg:w-4/5 mx-auto my-5 lg:my-10 overflow-auto">
-        <div className="flex items-center justify-between ">
+        <div className="flex items-center justify-between gap-5">
           {/* Categorization */}
-          <div className="rounded-full bg-gray-50  shadow-sm  shadow-gray-400 inline-block py-3 px-6 ">
-            <select value={category} onChange={(e) => setCategory(e.target.value)} className=" focus:outline-none bg-gray-50 ">
-              <option value="" disabled>
-                Category
-              </option>
-              <option value="Wearables">Wearables</option>
-              <option value="Accessories">Accessories</option>
-              <option value="Footwear">Footwear</option>
-              <option value="Furniture">Furniture</option>
-              <option value="Fitness">Fitness</option>
-              <option value="Home Security">Home Security</option>
-              <option value="Home Decor">Home Decor</option>
-              <option value="Outdoors">Outdoors</option>
-              <option value="Personal Care">Personal Care</option>
-              <option value="Electronics">Electronics</option>
-              <option value="Home Appliances">Home Appliances</option>
-            </select>
+          <div className="flex gap-5 items-center">
+            <div className="rounded-full bg-gray-50  shadow-sm  shadow-gray-400 inline-block py-3 px-6 ">
+              <select value={category} onChange={(e) => setCategory(e.target.value)} className=" focus:outline-none bg-gray-50 ">
+                <option value="" disabled>
+                  Category
+                </option>
+                <option value="">All Category</option>
+                <option value="Wearables">Wearables</option>
+                <option value="Accessories">Accessories</option>
+                <option value="Footwear">Footwear</option>
+                <option value="Furniture">Furniture</option>
+                <option value="Fitness">Fitness</option>
+                <option value="Home Security">Home Security</option>
+                <option value="Home Decor">Home Decor</option>
+                <option value="Outdoors">Outdoors</option>
+                <option value="Personal Care">Personal Care</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Home Appliances">Home Appliances</option>
+              </select>
+            </div>
+
+            <div className="rounded-full bg-gray-50  shadow-sm  shadow-gray-400 inline-block py-3 px-6 ">
+              <select onChange={handlePriceRange} className=" focus:outline-none bg-gray-50 ">
+                <option value="" disabled>
+                  Filter by Price
+                </option>
+                <option value="[0,10000000]">All Product</option>
+                <option value="[1,50]">1 to 50</option>
+                <option value="[51,100]">51 to 100</option>
+                <option value="[101,200]">101 to 200</option>
+                <option value="[201, 10000000]">201 to all</option>
+              </select>
+            </div>
           </div>
 
           {/* Searching */}
@@ -119,7 +146,7 @@ const Products = () => {
           </div>
 
           {/* Sorting */}
-          <div>
+          <div className="flex gap-5 items-center">
             {/* Sort By Date */}
             <div className="rounded-full bg-gray-50  shadow-sm shadow-gray-400 inline-block py-3 px-6 mr-5">
               <select className="bg-gray-50 focus:outline-none" value={sortByDate} onChange={(e) => setSortByDate(e.target.value)}>

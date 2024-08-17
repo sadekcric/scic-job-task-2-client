@@ -67,8 +67,8 @@ const Products = () => {
   };
 
   // Category + price Range
-  const [category, setCategory] = useState("Electronics");
-  const [priceRange, setPriceRange] = useState([]);
+  const [category, setCategory] = useState(null);
+  const [priceRange, setPriceRange] = useState([1, 10000000]);
 
   const handlePriceRange = (e) => {
     const value = e.target.value;
@@ -97,7 +97,7 @@ const Products = () => {
                 <option value="" disabled>
                   Category
                 </option>
-                <option value="">All Category</option>
+                <option value="">All Products</option>
                 <option value="Wearables">Wearables</option>
                 <option value="Accessories">Accessories</option>
                 <option value="Footwear">Footwear</option>
@@ -117,7 +117,7 @@ const Products = () => {
                 <option value="" disabled>
                   Filter by Price
                 </option>
-                <option value="[0,10000000]">All Product</option>
+                <option value="">All Product</option>
                 <option value="[1,50]">1 to 50</option>
                 <option value="[51,100]">51 to 100</option>
                 <option value="[101,200]">101 to 200</option>
